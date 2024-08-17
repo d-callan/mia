@@ -3,7 +3,11 @@
 #' These functions calculate the population prevalence for taxonomic ranks in a
 #' \code{\link{SummarizedExperiment-class}} object.
 #'
-#' @inheritParams calculateJSD
+#' @inheritParams getDissimilarity
+#' 
+#' @param x \code{\link[TreeSummarizedExperiment:TreeSummarizedExperiment-class]{TreeSummarizedExperiment}}.
+#' 
+#' @param assay_name Deprecated. Use \code{assay.type} instead.
 #'
 #' @param detection \code{Numeric scalar}. Detection threshold for absence/presence. 
 #'    If \code{as_relative = FALSE},
@@ -109,7 +113,7 @@
 #'                                       sort = TRUE)
 #' head(prevalence.frequency)
 #'
-#' # Get prevalence estimates for phylums
+#' # Get prevalence estimates for phyla
 #' # - the getPrevalence function itself always returns population frequencies
 #' prevalence.frequency <- getPrevalence(tse,
 #'                                       rank = "Phylum",
@@ -228,7 +232,7 @@ setMethod("getPrevalence", signature = c(x = "ANY"), function(
 .agg_for_prevalence <- function(
         x, rank, relabel = FALSE, make.unique = TRUE, na.rm = FALSE,
         agg.na.rm = TRUE, ...){
-    # Check na.rm. It is not used in this function, it is only catched so that
+    # Check na.rm. It is not used in this function, it is only caught so that
     # it can be passed to getPrevalence(matrix) and not use it here in
     # agglomerateByRank function.
     if(!.is_a_bool(na.rm)){
